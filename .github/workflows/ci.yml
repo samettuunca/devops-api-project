@@ -26,3 +26,11 @@ jobs:
      
       - name: Build Docker image
         run: docker build -t devops-api:${{ github.sha }} .
+
+       - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'devops-api:${{ github.sha }}'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
