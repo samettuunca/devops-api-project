@@ -25,7 +25,7 @@ jobs:
         run: python -m pytest
 
       - name: Build Docker image
-        run: docker build --pull --no-cache -t devops-api:${{ github.sha }} .
+        run: docker build --pull --no-cache --provenance=false --sbom=false -t devops-api:${{ github.sha }} .
 
       - name: Scan Docker image
         uses: aquasecurity/trivy-action@master
