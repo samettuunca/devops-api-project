@@ -35,3 +35,4 @@ jobs:
           severity: 'HIGH,CRITICAL'
           exit-code: '1'
           scanners: 'vuln'
+          debug: true
