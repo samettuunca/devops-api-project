@@ -29,10 +29,11 @@ jobs:
 
       - name: Scan Docker image
         uses: aquasecurity/trivy-action@master
+        env:
+          TRIVY_DEBUG: "true"
         with:
           image-ref: 'devops-api:${{ github.sha }}'
           format: 'table'
           severity: 'HIGH,CRITICAL'
           exit-code: '1'
           scanners: 'vuln'
-          debug: true
