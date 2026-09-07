@@ -23,5 +23,6 @@ jobs:
 
       - name: Run tests
         run: python -m pytest
-              - name: Build Docker image
+     
+      - name: Build Docker image
         run: docker build -t devops-api:${{ github.sha }} .
