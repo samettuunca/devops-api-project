@@ -49,3 +49,17 @@ jobs:
 
       - name: Verify AWS identity
         run: aws sts get-caller-identity
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Tag Docker image
+        run: |
+          docker tag devops-api:${{ github.sha }} \
+          246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push \
+          246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}
