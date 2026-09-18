@@ -35,12 +35,14 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t devops-api:${{ github.sha }} .
+          docker build \
+            -t devops-api:${{ github.sha }}-${{ github.run_attempt }} \
+            .
 
       - name: Run Trivy vulnerability scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: devops-api:${{ github.sha }}
+          image-ref: devops-api:${{ github.sha }}-${{ github.run_attempt }}
           format: table
           exit-code: "1"
           severity: "HIGH,CRITICAL"
@@ -58,13 +60,14 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag devops-api:${{ github.sha }} \
-            246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}
+          docker tag \
+            devops-api:${{ github.sha }}-${{ github.run_attempt }} \
+            246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}-${{ github.run_attempt }}
 
       - name: Push Docker image to ECR
         run: |
           docker push \
-            246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}
+            246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}-${{ github.run_attempt }}
 
       - name: Deploy to Terraform EC2 with SSM
         id: deploy
@@ -74,10 +77,10 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --parameters 'commands=[
               "aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 246392208993.dkr.ecr.eu-west-1.amazonaws.com",
-              "docker pull 246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}",
+              "docker pull 246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}-${{ github.run_attempt }}",
               "docker stop devops-api 2>/dev/null || true",
               "docker rm devops-api 2>/dev/null || true",
-              "docker run -d --name devops-api --restart unless-stopped -p 8000:8000 246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}"
+              "docker run -d --name devops-api --restart unless-stopped -p 8000:8000 246392208993.dkr.ecr.eu-west-1.amazonaws.com/devops-api:${{ github.sha }}-${{ github.run_attempt }}"
             ]' \
             --query "Command.CommandId" \
             --output text)
