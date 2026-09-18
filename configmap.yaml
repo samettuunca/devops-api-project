@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: devops-api-config
+
+data:
+  APP_ENV: development
+  LOG_LEVEL: info
