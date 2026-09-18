@@ -38,12 +38,13 @@ jobs:
           docker build -t devops-api:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: devops-api:${{ github.sha }}
           format: table
           exit-code: "1"
           severity: "HIGH,CRITICAL"
+          scanners: "vuln"
 
       - name: Configure AWS credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v4
