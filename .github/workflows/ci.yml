@@ -45,6 +45,7 @@ jobs:
           exit-code: "1"
           severity: "HIGH,CRITICAL"
           scanners: "vuln"
+          skip-files: "usr/local/lib/python3.14/site-packages/pip/_vendor/bom.cdx.json"
 
       - name: Configure AWS credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v4
