@@ -585,3 +585,29 @@ Beklenen sonuç:
 - AWS IAM
 - AWS Systems Manager
 - GitHub OIDC
+
+## Screenshots
+
+### CI/CD Pipeline
+![GitHub Actions Success](screenshots/01-github-actions-success.png)
+
+### Terraform EC2 Deployment
+![Terraform EC2 Apply](screenshots/02-terraform-ec2-apply.png)
+
+### Terraform Security Group
+![Terraform Security Group](screenshots/03-terraform-security-group.png)
+
+### AWS Systems Manager
+![SSM Fleet Manager](screenshots/04-ssm-fleet-manager.png)
+
+### Amazon ECR
+![ECR Images](screenshots/05-ecr-images.png)
+
+### Kubernetes
+![Kubernetes Deployment](screenshots/06-kubernetes.png)
+
+### Application Access via ALB
+![FastAPI Swagger via ALB](screenshots/07-alb-fastapi-swagger.png)
+
+### Final Deployment Verification
+![Final Deployment Health](screenshots/08-final-deployment-health.png)
