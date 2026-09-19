@@ -606,8 +606,7 @@ Beklenen sonuç:
 ### Kubernetes
 ![Kubernetes Deployment](screenshots/06-kubernetes.png)
 
-### Application Access via ALB
-![FastAPI Swagger via ALB](screenshots/07-alb-fastapi-swagger.png)
+
 
 ### Final Deployment Verification
 ![Final Deployment Health](screenshots/08-final-deployment-health.png)
